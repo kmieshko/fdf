@@ -33,6 +33,8 @@ typedef struct	s_color
 	int			r;
 	int			g;
 	int			b;
+	int			col0;
+	int			col1;
 }				t_color;
 
 typedef struct	s_line
@@ -45,6 +47,8 @@ typedef struct	s_line
 	int			sx;
 	int			dy;
 	int			sy;
+	int			error;
+	int			error2;
 }				t_line;
 
 typedef struct 	s_rot
@@ -59,6 +63,7 @@ typedef struct	s_dot
 	int		x;
 	int		y;
 	int		color;
+	int		orig;
 }				t_dot;
 
 typedef	struct	s_map
@@ -69,22 +74,24 @@ typedef	struct	s_map
 	int		rows;
 	int		**tab;
 	t_dot	***dot;
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	float	z;
 	float	scale;
 	int		min;
 	int		max;
-	int		vertic;
-	int		horiz;
+	float		vertic;
+	float		horiz;
 	int		flag;
-	int		width;
-	int		high;
-	int		mid_x;
-	int		mid_y;
+	float		width;
+	float		high;
+	float		mid_x;
+	float		mid_y;
 }				t_map;
 
 int					get_next_line(int const fd, char **line);
+long long int			ft_atoi_base(char *str, int base);
+
 void	ft_print_res(t_map *map);
 
 #endif

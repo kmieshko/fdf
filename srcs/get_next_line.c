@@ -10,26 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-static char		*join(char *s1, char *s2)
-{
-	char	*arr;
-	size_t	len1;
-	size_t	len2;
-
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	len1 = s1 == NULL ? 0 : ft_strlen(s1);
-	len2 = s2 == NULL ? 0 : ft_strlen(s2);
-	if (!(arr = ft_strnew(len1 + len2 + 1)))
-		return (NULL);
-	if (len1 > 0)
-		arr = ft_strcpy(arr, s1);
-	arr = ft_strcat(arr, s2);
-	ft_strdel(&s1);
-	return (arr);
-}
+#include "../incl/fdf.h"
 
 static t_gnl	*create_gnl(t_gnl **gnl, int fd, char *buf)
 {
@@ -117,12 +98,24 @@ static char		*fill_line(t_gnl **gnl, int fd, char *buf)
 	return (str);
 }
 
+static	int		ft_main_condition(int fd, char **line, char *buf, t_gnl *gnl)
+{
+	if (!gnl)
+		if (!(gnl = create_gnl(&gnl, fd, buf)))
+			return (-1);
+	if ((*line = fill_line(&gnl, fd, buf)) != NULL)
+		return (1);
+	ft_strdel(&buf);
+	return (0);
+}
+
 int				get_next_line(int fd, char **line)
 {
 	static t_gnl	*gnl;
 	char			*buf;
 	int				i;
 
+	buf = NULL;
 	if (fd < 0 || !line || BUFF_SIZE < 1 || !(buf = ft_strnew(BUFF_SIZE)) ||
 		read(fd, buf, 0) < 0)
 	{
@@ -139,11 +132,5 @@ int				get_next_line(int fd, char **line)
 			if ((*line = fill_line(&gnl, fd, buf)) != NULL)
 				return (1);
 	}
-	if (!gnl)
-		if (!(gnl = create_gnl(&gnl, fd, buf)))
-			return (-1);
-	if ((*line = fill_line(&gnl, fd, buf)) != NULL)
-		return (1);
-	ft_strdel(&buf);
-	return (0);
+	return (ft_main_condition(fd, line, buf, gnl));
 }

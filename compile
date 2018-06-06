@@ -1,1 +1,0 @@
-gcc test.c -lmlx -framework OpenGL -framework AppKit libft/libft.a get_next_line.c ft_atoi_base.c

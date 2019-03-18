@@ -17,7 +17,7 @@ This is UNIT factory (school 42) studying graphical project that takes map of ar
 
 produces:
 
-Also there can be added colors in map in hex, using comma like: `20,0xFF0000` `15,0xFF0000` `15,0xFF0000` `17,0xFF0000`
+Also there can be added colors in map in hex, using comma like: `20,0xFF0000` `15,0xFF00FF` `13,0x00FF00` etc...
 
 Also you can rotate, zoom, change colors etc...(All controls are displayed on output screen)
 
